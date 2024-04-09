@@ -1,0 +1,17 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(58, 134, 255, 0.5);
+}
+
+.main {
+  height: 100vh;
+  background: #3a86ff;
+}

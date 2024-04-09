@@ -1,0 +1,49 @@
+/* cutive-mono-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Cutive Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./cutive-mono-v20-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-family: "Cutive Mono";
+  font-weight: 700;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #f6cb0d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.btn {
+  background-color: white;
+  border: 2px solid black;
+  height: 2rem;
+  width: 6rem;
+  font-size: 1.3rem;
+  box-shadow: 3px 3px white;
+}
+
+.number-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding: 2rem;
+}
+
+.number {
+  font-size: 7rem;
+}
