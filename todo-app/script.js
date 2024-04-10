@@ -2,7 +2,7 @@ const textInput = document.getElementById("text-input");
 const btn = document.getElementById("add-btn");
 const rmbtn = document.getElementById("remove-btn");
 const ul = document.querySelector("ul");
-const unique = new Set();
+
 //filter state: all, open, done
 
 const all = document.getElementById("all");
@@ -20,49 +20,34 @@ let state = {
   ],
 };
 
-//take data from state and create todo checkboxes
-// function render() {
-//   if (JSON.parse(localStorage.getItem("AllMyTodos")) !== null) {
-//     state = JSON.parse(localStorage.getItem("AllMyTodos"));
-//   }
-//   ul.innerHTML = "";
+function setState() {
+  localStorage.setItem("AllMyTodos", JSON.stringify(state));
+}
 
-//   state.todos.forEach((todo) => {
-//     const input = document.createElement("input");
-//     input.type = "checkbox";
-//     input.name = "done";
-//     input.checked = todo.done;
+function getState() {
+  if (JSON.parse(localStorage.getItem("AllMyTodos")) == null) {
+    return state;
+  }
+  state = JSON.parse(localStorage.getItem("AllMyTodos"));
+}
+//create unique set full of todo-strings from initial state or local storage
 
-//     input.addEventListener("change", () => {
-//       todo.done = input.checked;
-//       localStorage.setItem("AllMyTodos", JSON.stringify(state));
-//     });
-
-//     const span = document.createElement("span");
-//     span.textContent = todo.description;
-
-//     const label = document.createElement("label");
-//     label.append(input, span);
-
-//     const form = document.createElement("form");
-//     form.append(label);
-
-//     const li = document.createElement("li");
-//     li.append(form);
-
-//     ul.append(li);
-//   });
-// }
+const unique = new Set();
+getState();
+for (item of state.todos) {
+  unique.add(item.description);
+}
+console.log(unique);
 
 //take user input and add it to the state
 function addToState() {
-  let inputValue = textInput.value.trim();
-  if (unique.has(inputValue)) {
+  let description = textInput.value.trim();
+  if (unique.has(description)) {
     return;
   } else {
-    unique.add(inputValue);
-    state.todos.push({ description: inputValue, ID: Date.now(), done: false });
-    localStorage.setItem("AllMyTodos", JSON.stringify(state));
+    unique.add(description);
+    state.todos.push({ description, ID: Date.now(), done: false });
+    setState();
   }
 }
 
@@ -72,99 +57,50 @@ function removeFromState() {
       state.todos.splice(i, 1);
     }
   }
-  localStorage.setItem("AllMyTodos", JSON.stringify(state));
+  setState();
 }
 
 function render() {
-  if (JSON.parse(localStorage.getItem("AllMyTodos")) !== null) {
-    state = JSON.parse(localStorage.getItem("AllMyTodos"));
-  }
+  getState();
   ul.innerHTML = "";
+
+  let filterFunction;
   if (open.checked) {
-    state.todos.forEach((todo) => {
-      if (todo.done === false) {
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.name = "done";
-        input.checked = todo.done;
-
-        input.addEventListener("change", () => {
-          todo.done = input.checked;
-          localStorage.setItem("AllMyTodos", JSON.stringify(state));
-        });
-
-        const span = document.createElement("span");
-        span.textContent = todo.description;
-
-        const label = document.createElement("label");
-        label.append(input, span);
-
-        const form = document.createElement("form");
-        form.append(label);
-
-        const li = document.createElement("li");
-        li.append(form);
-
-        ul.append(li);
-      }
-    });
+    filterFunction = (todo) => !todo.done;
   } else if (done.checked) {
-    state.todos.forEach((todo) => {
-      if (todo.done) {
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.name = "done";
-        input.checked = todo.done;
-
-        input.addEventListener("change", () => {
-          todo.done = input.checked;
-          localStorage.setItem("AllMyTodos", JSON.stringify(state));
-        });
-
-        const span = document.createElement("span");
-        span.textContent = todo.description;
-
-        const label = document.createElement("label");
-        label.append(input, span);
-
-        const form = document.createElement("form");
-        form.append(label);
-
-        const li = document.createElement("li");
-        li.append(form);
-
-        ul.append(li);
-      }
-    });
+    filterFunction = (todo) => todo.done;
   } else {
-    state.todos.forEach((todo) => {
-      const input = document.createElement("input");
-      input.type = "checkbox";
-      input.name = "done";
-      input.checked = todo.done;
-
-      input.addEventListener("change", () => {
-        todo.done = input.checked;
-        localStorage.setItem("AllMyTodos", JSON.stringify(state));
-      });
-
-      const span = document.createElement("span");
-      span.textContent = todo.description;
-
-      const label = document.createElement("label");
-      label.append(input, span);
-
-      const form = document.createElement("form");
-      form.append(label);
-
-      const li = document.createElement("li");
-      li.append(form);
-
-      ul.append(li);
-    });
+    filterFunction = () => true;
   }
+
+  state.todos.filter(filterFunction).forEach((todo) => {
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "done";
+    input.checked = todo.done;
+
+    input.addEventListener("change", () => {
+      todo.done = input.checked;
+      localStorage.setItem("AllMyTodos", JSON.stringify(state));
+    });
+
+    const span = document.createElement("span");
+    span.textContent = todo.description;
+
+    const label = document.createElement("label");
+    label.append(input, span);
+
+    const form = document.createElement("form");
+    form.append(label);
+
+    const li = document.createElement("li");
+    li.append(form);
+
+    ul.append(li);
+  });
 }
 
+console.log(unique);
 render();
 
 //determine changes in state
@@ -180,8 +116,7 @@ rmbtn.addEventListener("click", () => {
 });
 
 document.addEventListener("reset", () => {
-  localStorage.getItem("AllMyTodos");
-  state = JSON.parse(localStorage.getItem("AllMyTodos"));
+  getState();
 });
 
 document.addEventListener("change", () => {
