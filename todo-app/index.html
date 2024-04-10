@@ -13,6 +13,17 @@
         <h1>To Do App</h1>
     </header>
     <main>
+        <div id="show-todos">
+            <label>
+                <input type="radio" name="filter" value="all" id="all" checked>all todos
+            </label>
+            <label>
+                <input type="radio" name="filter" value="open" id="open">open todos
+            </label>
+            <label>
+                <input type="radio" name="filter" value="done" id="done">done todos
+            </label>
+        </div>
         <ul class="todo-list">
             <form>
                 <li>
@@ -21,7 +32,8 @@
             </form>
         </ul>
         <input type="text" id="text-input">
-        <button>add</button>
+        <button id="add-btn">add</button>
+        <button id="remove-btn">remove done todos</button>
     </main>
     <script src="script.js"></script>
 </body>
