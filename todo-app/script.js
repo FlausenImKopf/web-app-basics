@@ -3,14 +3,12 @@ const btn = document.getElementById("add-btn");
 const rmbtn = document.getElementById("remove-btn");
 const ul = document.querySelector("ul");
 
-//filter state: all, open, done
-
-const all = document.getElementById("all");
+//filter state: (default is all) open, done
 const open = document.getElementById("open");
 const done = document.getElementById("done");
 
-//state
-let state = {
+//initial state
+let initialState = {
   todos: [
     {
       description: "create your first to-do",
@@ -20,24 +18,26 @@ let state = {
   ],
 };
 
+// functions for state handling
 function setState() {
   localStorage.setItem("AllMyTodos", JSON.stringify(state));
 }
 
 function getState() {
   if (JSON.parse(localStorage.getItem("AllMyTodos")) == null) {
+    const state = initialState;
     return state;
   }
-  state = JSON.parse(localStorage.getItem("AllMyTodos"));
+  const state = JSON.parse(localStorage.getItem("AllMyTodos"));
+  return state;
 }
-//create unique set full of todo-strings from initial state or local storage
 
+//duplicate todos check
 const unique = new Set();
-getState();
+const state = getState();
 for (item of state.todos) {
   unique.add(item.description);
 }
-console.log(unique);
 
 //take user input and add it to the state
 function addToState() {
@@ -46,12 +46,16 @@ function addToState() {
     return;
   } else {
     unique.add(description);
+    getState();
     state.todos.push({ description, ID: Date.now(), done: false });
     setState();
+    console.log(state);
   }
 }
 
+//remove todos from State
 function removeFromState() {
+  getState();
   for (let i = state.todos.length - 1; i >= 0; i--) {
     if (state.todos[i].done) {
       state.todos.splice(i, 1);
@@ -81,7 +85,7 @@ function render() {
 
     input.addEventListener("change", () => {
       todo.done = input.checked;
-      localStorage.setItem("AllMyTodos", JSON.stringify(state));
+      setState();
     });
 
     const span = document.createElement("span");
@@ -100,10 +104,9 @@ function render() {
   });
 }
 
-console.log(unique);
 render();
 
-//determine changes in state
+//event handling
 btn.addEventListener("click", () => {
   addToState();
   render();
@@ -111,12 +114,11 @@ btn.addEventListener("click", () => {
 
 rmbtn.addEventListener("click", () => {
   removeFromState();
-  console.log(state);
   render();
 });
 
 document.addEventListener("reset", () => {
-  getState();
+  const state = getState();
 });
 
 document.addEventListener("change", () => {
