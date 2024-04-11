@@ -1,5 +1,5 @@
 const textInput = document.getElementById("text-input");
-const btn = document.getElementById("add-btn");
+const addTodoForm = document.getElementById("add-todo-form");
 const rmbtn = document.getElementById("remove-btn");
 const ul = document.querySelector("ul");
 
@@ -32,7 +32,7 @@ function getState() {
   return state;
 }
 
-//duplicate todos check
+//duplicate todos check: initialize Set of unique todos
 const unique = new Set();
 const state = getState();
 for (item of state.todos) {
@@ -58,6 +58,7 @@ function removeFromState() {
   getState();
   for (let i = state.todos.length - 1; i >= 0; i--) {
     if (state.todos[i].done) {
+      unique.delete(state.todos[i].description);
       state.todos.splice(i, 1);
     }
   }
@@ -107,7 +108,8 @@ function render() {
 render();
 
 //event handling
-btn.addEventListener("click", () => {
+addTodoForm.addEventListener("submit", (event) => {
+  event.preventDefault();
   addToState();
   render();
 });
