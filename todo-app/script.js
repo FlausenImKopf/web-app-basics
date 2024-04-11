@@ -1,5 +1,6 @@
+//declaration of variables and initial state
 const unique = new Set();
-const state = getState();
+let state = {};
 const textInput = document.getElementById("text-input");
 const addTodoForm = document.getElementById("add-todo-form");
 const rmbtn = document.getElementById("remove-btn");
@@ -34,9 +35,11 @@ function getState() {
   return state;
 }
 
-//duplicate todos check: initialize Set of unique todos
-for (item of state.todos) {
-  unique.add(item.description.toLowerCase());
+//duplicate todos check: initialize set of unique todos
+function initializeUnique() {
+  for (item of state.todos) {
+    unique.add(item.description.toLowerCase());
+  }
 }
 
 //take user input and add it to the state, if it's not a duplicate
@@ -110,6 +113,9 @@ function render() {
   });
 }
 
+//code that is executed when todo app loads
+state = getState();
+initializeUnique();
 render();
 
 //event handling
