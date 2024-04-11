@@ -61,3 +61,10 @@ Because filtering is a nice feature you will now implement one.
 You will now add a feature that will remove done todos from your list.
 
 - [ ] Add a "Remove Done Todos" button which will remove all done todos from the list
+
+### Bonus features
+
+- [ ] add functionality that lets the user delete specific todos
+- [ ] add functionality that lets the user rename todos
+- [ ] add styling to your todo app
+- [ ] add functionality that lets the user sort and prioritize their todos.

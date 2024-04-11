@@ -1,3 +1,5 @@
+const unique = new Set();
+const state = getState();
 const textInput = document.getElementById("text-input");
 const addTodoForm = document.getElementById("add-todo-form");
 const rmbtn = document.getElementById("remove-btn");
@@ -33,29 +35,26 @@ function getState() {
 }
 
 //duplicate todos check: initialize Set of unique todos
-const unique = new Set();
-const state = getState();
 for (item of state.todos) {
-  unique.add(item.description);
+  unique.add(item.description.toLowerCase());
 }
 
-//take user input and add it to the state
+//take user input and add it to the state, if it's not a duplicate
 function addToState() {
   let description = textInput.value.trim();
-  if (unique.has(description)) {
-    return;
+  if (unique.has(description.toLowerCase())) {
+    alert("Your todo already exists");
+    textInput.value = "";
   } else {
-    unique.add(description);
-    getState();
+    unique.add(description.toLowerCase());
     state.todos.push({ description, ID: Date.now(), done: false });
     setState();
-    console.log(state);
+    textInput.value = "";
   }
 }
 
-//remove todos from State
-function removeFromState() {
-  getState();
+//remove todos from State and from duplicate check set
+function removeCompletedTodos() {
   for (let i = state.todos.length - 1; i >= 0; i--) {
     if (state.todos[i].done) {
       unique.delete(state.todos[i].description);
@@ -66,7 +65,6 @@ function removeFromState() {
 }
 
 function render() {
-  getState();
   ul.innerHTML = "";
 
   let filterFunction;
@@ -88,9 +86,15 @@ function render() {
       todo.done = input.checked;
       setState();
     });
-
+    const s = document.createElement("s");
     const span = document.createElement("span");
-    span.textContent = todo.description;
+
+    if (todo.done) {
+      s.textContent = todo.description;
+      span.append(s);
+    } else if (!todo.done) {
+      span.textContent = todo.description;
+    }
 
     const label = document.createElement("label");
     label.append(input, span);
@@ -102,6 +106,7 @@ function render() {
     li.append(form);
 
     ul.append(li);
+    console.log(ul);
   });
 }
 
@@ -115,12 +120,8 @@ addTodoForm.addEventListener("submit", (event) => {
 });
 
 rmbtn.addEventListener("click", () => {
-  removeFromState();
+  removeCompletedTodos();
   render();
-});
-
-document.addEventListener("reset", () => {
-  const state = getState();
 });
 
 document.addEventListener("change", () => {
