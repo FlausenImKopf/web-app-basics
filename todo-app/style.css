@@ -1,3 +1,23 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.body {
+  background-color: #efeae4;
+}
+
 .todo-list {
   list-style-type: none;
 }
+/* .header {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #2b5d8a;
+  background-image: linear-gradient(#9f4927, transparent);
+} */
+
+/* .h1 {
+  background-color: #efeae4;
+} */

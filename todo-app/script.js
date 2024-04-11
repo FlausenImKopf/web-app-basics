@@ -9,6 +9,7 @@ const ul = document.querySelector("ul");
 //filter state: (default is all) open, done
 const open = document.getElementById("open");
 const done = document.getElementById("done");
+const all = document.getElementById("all");
 
 //initial state
 let initialState = {
@@ -19,6 +20,7 @@ let initialState = {
       done: false,
     },
   ],
+  filter: "all",
 };
 
 // functions for state handling
@@ -71,11 +73,14 @@ function render() {
   ul.innerHTML = "";
 
   let filterFunction;
-  if (open.checked) {
+  if (state.filter == "open") {
+    open.setAttribute("checked", "");
     filterFunction = (todo) => !todo.done;
-  } else if (done.checked) {
+  } else if (state.filter == "done") {
+    done.setAttribute("checked", "");
     filterFunction = (todo) => todo.done;
   } else {
+    all.setAttribute("checked", "");
     filterFunction = () => true;
   }
 
@@ -109,7 +114,6 @@ function render() {
     li.append(form);
 
     ul.append(li);
-    console.log(ul);
   });
 }
 
@@ -131,5 +135,14 @@ rmbtn.addEventListener("click", () => {
 });
 
 document.addEventListener("change", () => {
+  if (open.checked) {
+    state.filter = "open";
+    console.log(state);
+  } else if (done.checked) {
+    state.filter = "done";
+  } else {
+    state.filter = "all";
+  }
+  setState();
   render();
 });
