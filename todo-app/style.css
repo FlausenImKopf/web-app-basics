@@ -1,12 +1,22 @@
+/* sometype-mono-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Sometype Mono";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./sometype-mono-v1-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   color: white;
+  font-family: Sometype Mono;
 }
 
 .body {
-  background-color: #ffa3afff;
+  background-color: #fff7d6;
   height: 100vh;
   display: grid;
   grid-template-columns: 25% 50% 25%;
@@ -15,17 +25,14 @@
   row-gap: 3rem;
 }
 
-.todo-list {
-  list-style-type: none;
-}
 .header {
   padding-top: 2rem;
   padding-bottom: 2rem;
   margin-top: 1rem;
   color: white;
-  background-color: #ffd639ff;
+  background-color: #f5c400;
   border: 2px solid white;
-  box-shadow: 10px 10px #ffd639ff;
+  box-shadow: 10px 10px #f5c400;
   display: flex;
   justify-content: center;
   grid-column-start: 2;
@@ -33,10 +40,6 @@
   grid-row-start: 1;
   grid-row-end: 2;
 }
-
-/* .h1 {
-  background-color: #ffd639ff;
-} */
 
 .main {
   grid-column-start: 2;
@@ -50,10 +53,11 @@
 }
 
 .todo-list {
+  list-style-type: none;
   padding-top: 1rem;
-  background-color: #ffd639ff;
+  background-color: #f5c400;
   border: 2px solid white;
-  box-shadow: 10px 10px #ffd639ff;
+  box-shadow: 10px 10px #f5c400;
 }
 
 .show-todos {
@@ -99,7 +103,7 @@ input[type="checkbox"] {
   width: 1.2em;
   height: 1.2em;
   border: 0.15em solid currentColor;
-  background-color: #ffd639ff;
+  background-color: #f5c400;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
   display: grid;
