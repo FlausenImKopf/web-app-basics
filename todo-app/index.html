@@ -4,39 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do App</title>
+    <title>Today's Tasks</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="body">
     <header class="header">
-        <h1 class="h1">To Do App</h1>
+        <h1 class="h1">Today's Tasks</h1>
     </header>
-    <main>
-        <div id="show-todos">
-            <label>
+    <main class="main">
+        <div id="show-todos" class="show-todos">
+            <label class="each-radio-btn">
                 <input type="radio" name="filter" value="all" id="all" checked>all todos
             </label>
-            <label>
+            <label class="each-radio-btn">
                 <input type="radio" name="filter" value="open" id="open">open todos
             </label>
-            <label>
+            <label class="each-radio-btn">
                 <input type="radio" name="filter" value="done" id="done">done todos
             </label>
         </div>
         <ul class="todo-list">
             <form>
                 <li>
-                    <label><input type="checkbox" name="description">create your first to-do</label>
+                    <label class="each-todo">
+                        <input class="checkbox" type="checkbox" name="description">
+                        <span>create your first todo</span>
+                    </label>
                 </li>
             </form>
         </ul>
-        <form id="add-todo-form">
-            <input type="text" id="text-input" placeholder="Add todos here">
-            <button type="submit">add</button>
+        <form id="add-todo-form" class="add-todo-form">
+            <input class="text-input" type="text" id="text-input" placeholder="Add todos here">
+            <button class="submit-btn" type="submit">add</button>
         </form>
 
-        <button id="remove-btn">remove done todos</button>
+        <button class="remove-btn" id="remove-btn">remove done todos</button>
     </main>
     <script src="script.js"></script>
 </body>

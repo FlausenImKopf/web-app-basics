@@ -88,6 +88,7 @@ function render() {
     const input = document.createElement("input");
     input.type = "checkbox";
     input.name = "done";
+    input.class = "checkbox";
     input.checked = todo.done;
 
     input.addEventListener("change", () => {
@@ -105,9 +106,11 @@ function render() {
     }
 
     const label = document.createElement("label");
+    label.className = "each-todo";
     label.append(input, span);
 
     const form = document.createElement("form");
+    form.class = "contains-todos";
     form.append(label);
 
     const li = document.createElement("li");
