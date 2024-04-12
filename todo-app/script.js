@@ -30,7 +30,7 @@ function setState() {
 
 function getState() {
   if (JSON.parse(localStorage.getItem("AllMyTodos")) == null) {
-    const state = initialState;
+    state = initialState;
     return state;
   }
   const state = JSON.parse(localStorage.getItem("AllMyTodos"));
@@ -88,7 +88,7 @@ function render() {
     const input = document.createElement("input");
     input.type = "checkbox";
     input.name = "done";
-    input.class = "checkbox";
+    input.className = "checkbox";
     input.checked = todo.done;
 
     input.addEventListener("change", () => {
@@ -110,7 +110,7 @@ function render() {
     label.append(input, span);
 
     const form = document.createElement("form");
-    form.class = "contains-todos";
+    form.className = "contains-todos";
     form.append(label);
 
     const li = document.createElement("li");
