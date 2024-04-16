@@ -1,5 +1,4 @@
 //declaration of variables and initial state
-const unique = new Set();
 let state = {};
 const textInput = document.getElementById("text-input");
 const addTodoForm = document.getElementById("add-todo-form");
@@ -30,40 +29,34 @@ function setState() {
 }
 
 function getState() {
-  if (JSON.parse(localStorage.getItem("AllMyTodos")) == null) {
+  const savedState = JSON.parse(localStorage.getItem("AllMyTodos"));
+  if (!savedState) {
     state = initialState;
-    return state;
-  }
-  const state = JSON.parse(localStorage.getItem("AllMyTodos"));
-  return state;
-}
-
-//duplicate todos check: initialize set of unique todos
-function initializeUnique() {
-  for (item of state.todos) {
-    unique.add(item.description.toLowerCase());
+  } else {
+    state = savedState;
   }
 }
 
 //take user input and add it to the state, if it's not a duplicate
 function addToState() {
   let description = textInput.value.trim();
-  if (unique.has(description.toLowerCase())) {
-    alert("Your todo already exists");
-    textInput.value = "";
-  } else {
-    unique.add(description.toLowerCase());
-    state.todos.push({ description, ID: Date.now(), done: false });
-    setState();
-    textInput.value = "";
+  if (
+    state.todos.some((todo) => {
+      return todo.description.toLowerCase() == description.toLowerCase();
+    })
+  ) {
+    alert("Todo already exists");
+    return;
   }
+  state.todos.push({ description, ID: Date.now(), done: false });
+  setState();
+  textInput.value = "";
 }
 
 //remove todos from State and from duplicate check set
 function removeCompletedTodos() {
   for (let i = state.todos.length - 1; i >= 0; i--) {
     if (state.todos[i].done) {
-      unique.delete(state.todos[i].description);
       state.todos.splice(i, 1);
     }
   }
@@ -99,7 +92,7 @@ function render() {
     addTodoForm.classList.add("add-todo-form");
   }
 
-  state.todos.filter(filterFunction).forEach((todo) => {
+  state.todos?.filter(filterFunction).forEach((todo) => {
     const input = document.createElement("input");
     input.type = "checkbox";
     input.name = "done";
@@ -135,7 +128,6 @@ function render() {
 
 //code that is executed when todo app loads
 getState();
-initializeUnique();
 render();
 
 //event handling
@@ -153,7 +145,6 @@ rmbtn.addEventListener("click", () => {
 document.addEventListener("change", () => {
   if (open.checked) {
     state.filter = "open";
-    console.log(state);
   } else if (done.checked) {
     state.filter = "done";
   } else {
