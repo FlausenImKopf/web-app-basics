@@ -5,6 +5,7 @@ const textInput = document.getElementById("text-input");
 const addTodoForm = document.getElementById("add-todo-form");
 const rmbtn = document.getElementById("remove-btn");
 const ul = document.querySelector("ul");
+const div = document.querySelector("div");
 
 //filter state: all (default), open, done
 const open = document.getElementById("open");
@@ -77,19 +78,19 @@ function render() {
   let filterFunction;
   if (state.filter == "open") {
     open.setAttribute("checked", "");
-    ul.classList.remove(...cls);
-    ul.classList.add("todo-list-open");
+    div.classList.remove(...cls);
+    div.classList.add("todo-list-open");
     filterFunction = (todo) => !todo.done;
   } else if (state.filter == "done") {
     done.setAttribute("checked", "");
-    ul.classList.remove(...cls);
-    ul.classList.add("todo-list-done");
+    div.classList.remove(...cls);
+    div.classList.add("todo-list-done");
     filterFunction = (todo) => todo.done;
   } else {
     all.setAttribute("checked", "");
     filterFunction = () => true;
-    ul.classList.remove(...cls);
-    ul.classList.add("todo-list-all");
+    div.classList.remove(...cls);
+    div.classList.add("todo-list-all");
   }
 
   state.todos.filter(filterFunction).forEach((todo) => {
