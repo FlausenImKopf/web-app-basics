@@ -1,5 +1,9 @@
 //declaration of variables and initial state
-let state = {};
+let state = {
+  todos: [],
+  filter: "all",
+};
+
 const textInput = document.getElementById("text-input");
 const addTodoForm = document.getElementById("add-todo-form");
 const rmbtn = document.getElementById("remove-btn");
@@ -12,7 +16,7 @@ const done = document.getElementById("done");
 const all = document.getElementById("all");
 
 //initial state
-let initialState = {
+const initialState = {
   todos: [
     {
       description: "create your first to-do",
@@ -29,17 +33,24 @@ function setState() {
 }
 
 function getState() {
-  const savedState = JSON.parse(localStorage.getItem("AllMyTodos"));
-  if (!savedState) {
+  const rawSavedState = localStorage.getItem("AllMyTodos");
+
+  if (!rawSavedState) {
     state = initialState;
   } else {
-    state = savedState;
+    state = JSON.parse(rawSavedState);
   }
+}
+
+// Call this every time the state changes
+function onStateUpdate() {
+  setState();
+  render();
 }
 
 //take user input and add it to the state, if it's not a duplicate
 function addToState() {
-  let description = textInput.value.trim();
+  const description = textInput.value.trim();
   if (
     state.todos.some((todo) => {
       return todo.description.toLowerCase() == description.toLowerCase();
@@ -49,7 +60,7 @@ function addToState() {
     return;
   }
   state.todos.push({ description, ID: Date.now(), done: false });
-  setState();
+  onStateUpdate();
   textInput.value = "";
 }
 
@@ -60,7 +71,9 @@ function removeCompletedTodos() {
       state.todos.splice(i, 1);
     }
   }
-  setState();
+
+  state.todos = state.todos.filter((todo) => !todo.done);
+  onStateUpdate();
 }
 
 function render() {
@@ -92,6 +105,13 @@ function render() {
     addTodoForm.classList.add("add-todo-form");
   }
 
+  // const filterFunction =
+  //   state.filter == "open"
+  //     ? (t) => !t.done
+  //     : state.filter == "done"
+  //     ? (t) => t.done
+  //     : () => true;
+
   state.todos?.filter(filterFunction).forEach((todo) => {
     const input = document.createElement("input");
     input.type = "checkbox";
@@ -100,7 +120,7 @@ function render() {
 
     input.addEventListener("change", () => {
       todo.done = input.checked;
-      setState();
+      onStateUpdate();
     });
     const s = document.createElement("s");
     const span = document.createElement("span");
@@ -134,12 +154,10 @@ render();
 addTodoForm.addEventListener("submit", (event) => {
   event.preventDefault();
   addToState();
-  render();
 });
 
 rmbtn.addEventListener("click", () => {
   removeCompletedTodos();
-  render();
 });
 
 document.addEventListener("change", () => {
@@ -150,6 +168,5 @@ document.addEventListener("change", () => {
   } else {
     state.filter = "all";
   }
-  setState();
-  render();
+  onStateUpdate();
 });
