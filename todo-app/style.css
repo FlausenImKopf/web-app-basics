@@ -65,6 +65,7 @@
 
 .todo-list-area {
   list-style-type: none;
+  padding-right: 2rem;
 }
 
 .todo-list-all {
@@ -125,6 +126,8 @@
 
 .add-todo-form-done {
   display: none;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .each-todo {
@@ -175,7 +178,7 @@ input[type="checkbox"]:checked::before {
 
 .text-input {
   height: min-content;
-  min-width: 12rem;
+  /* min-width: 5rem; */
   background-color: transparent;
   border: transparent;
   border-bottom: 2px solid white;
@@ -188,7 +191,7 @@ input[type="checkbox"]:checked::before {
 
 .submit-btn {
   height: min-content;
-  width: 5rem;
+  /* min-width: auto; */
   background-color: transparent;
   border: 2px solid white;
   box-shadow: 5px 5px transparent;
