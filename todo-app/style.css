@@ -6,16 +6,22 @@
   font-weight: 700;
   src: url("./sometype-mono-v1-latin-700.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-
+/* General Styling */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  color: white;
   font-family: Sometype Mono;
 }
-
+/* Background Image styles and grid-layout */
 .body {
+  color: white;
+  background-image: linear-gradient(
+      rgba(255, 247, 214, 0.7),
+      rgba(255, 247, 214, 0.7)
+    ),
+    url(./emma-vyvey-kOZ7kMaV7cE-unsplash.jpg);
+  background-size: cover;
   background-color: #fff7d6;
   height: 100vh;
   display: grid;
@@ -48,11 +54,11 @@
   grid-row-end: 3;
   display: grid;
   grid-template-columns: 1;
-  grid-template-rows: 2rem 20rem 3rem 2rem;
+  grid-template-rows: 2rem 23rem 3rem 2rem;
   row-gap: 1rem;
 }
 
-.todo-list {
+.todo-list-all {
   list-style-type: none;
   padding-top: 1rem;
   background-color: #f5c400;
@@ -60,15 +66,56 @@
   box-shadow: 10px 10px #f5c400;
 }
 
+.todo-list-open {
+  list-style-type: none;
+  padding-top: 1rem;
+  background-color: #f5b000;
+  border: 2px solid white;
+  box-shadow: 10px 10px #f5b000;
+}
+
+.todo-list-done {
+  list-style-type: none;
+  padding-top: 1rem;
+  background-color: #f5a400;
+  border: 2px solid white;
+  box-shadow: 10px 10px #f5a400;
+}
+
+.todo-list:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
 .show-todos {
   display: flex;
   justify-content: space-around;
-  border: 2px solid white;
-  background-color: #00af54ff;
-  box-shadow: 10px 10px #00af54ff;
+  color: currentColor;
+  /* border: 2px solid white;
+  background-color: #f5c400;
+  box-shadow: 10px 10px #f5c400; */
 }
 
-.each-radio-btn {
+.radio-btn {
+  width: 4rem;
+  height: 4rem;
+  border-top: 2px solid white;
+  /* border-right: 2px solid white;
+  border-left: 2px solid white; */
+  /* border-radius: 50%; */
+}
+
+.all {
+  background-color: #f5c400;
+}
+
+.open {
+  background-color: #f5b000;
+}
+
+.done {
+  background-color: #f5a400;
 }
 
 .add-todo-form {
@@ -104,6 +151,7 @@ input[type="checkbox"] {
   height: 1.2em;
   border: 0.15em solid currentColor;
   background-color: #f5c400;
+  border-color: white;
   border-radius: 0.15em;
   transform: translateY(-0.075em);
   display: grid;
@@ -118,6 +166,7 @@ input[type="checkbox"]::before {
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   background-color: currentColor;
+  color: white;
 }
 
 input[type="checkbox"]:checked::before {
@@ -127,27 +176,30 @@ input[type="checkbox"]:checked::before {
 .text-input {
   height: min-content;
   min-width: 10rem;
-  background-color: #00af54ff;
+  background-color: #f5c400;
   border: 2px solid white;
-  box-shadow: 5px 5px #00af54ff;
+  box-shadow: 5px 5px #f5c400;
+  color: white;
 }
 
 ::placeholder {
-  color: white;
+  color: #fff7d6;
 }
 
 .submit-btn {
   height: min-content;
   width: 5rem;
-  background-color: #00af54ff;
+  background-color: #f5c400;
   border: 2px solid white;
-  box-shadow: 5px 5px #00af54ff;
+  box-shadow: 5px 5px #f5c400;
+  color: currentColor;
 }
 
 .remove-btn {
-  background-color: #00af54ff;
+  background-color: #f5c400;
   border: 2px solid white;
-  box-shadow: 10px 10px #00af54ff;
+  box-shadow: 10px 10px #f5c400;
+  color: currentColor;
 }
 
 /* color palette */

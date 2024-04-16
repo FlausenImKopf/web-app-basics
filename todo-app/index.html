@@ -13,18 +13,18 @@
         <h1 class="h1">Today's Tasks</h1>
     </header>
     <main class="main">
-        <div id="show-todos" class="show-todos">
-            <label class="each-radio-btn">
-                <input type="radio" name="filter" value="all" id="all" checked>all todos
+        <form id="show-todos" class="show-todos">
+            <label class="radio-btn all">
+                <input type="radio" name="filter" value="all" id="all" checked>all
             </label>
-            <label class="each-radio-btn">
-                <input type="radio" name="filter" value="open" id="open">open todos
+            <label class="radio-btn open">
+                <input type="radio" name="filter" value="open" id="open">open
             </label>
-            <label class="each-radio-btn">
-                <input type="radio" name="filter" value="done" id="done">done todos
+            <label class="radio-btn done">
+                <input type="radio" name="filter" value="done" id="done">done
             </label>
-        </div>
-        <ul class="todo-list">
+        </form>
+        <ul class="todo-list-all">
             <form>
                 <li>
                     <label class="each-todo">
