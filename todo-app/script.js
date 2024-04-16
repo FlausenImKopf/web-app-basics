@@ -134,7 +134,7 @@ function render() {
 }
 
 //code that is executed when todo app loads
-state = getState();
+getState();
 initializeUnique();
 render();
 
