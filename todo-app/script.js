@@ -73,24 +73,30 @@ function removeCompletedTodos() {
 function render() {
   ul.innerHTML = "";
 
-  const cls = ["todo-list-all", "todo-list-open", "todo-list-done"];
+  const todoListCls = ["todo-list-all", "todo-list-open", "todo-list-done"];
 
   let filterFunction;
   if (state.filter == "open") {
     open.setAttribute("checked", "");
-    div.classList.remove(...cls);
+    div.classList.remove(...todoListCls);
     div.classList.add("todo-list-open");
+    addTodoForm.classList.remove("add-todo-form-done");
+    addTodoForm.classList.add("add-todo-form");
     filterFunction = (todo) => !todo.done;
   } else if (state.filter == "done") {
     done.setAttribute("checked", "");
-    div.classList.remove(...cls);
+    div.classList.remove(...todoListCls);
     div.classList.add("todo-list-done");
+    addTodoForm.classList.remove("add-todo-form");
+    addTodoForm.classList.add("add-todo-form-done");
     filterFunction = (todo) => todo.done;
   } else {
     all.setAttribute("checked", "");
     filterFunction = () => true;
-    div.classList.remove(...cls);
+    div.classList.remove(...todoListCls);
     div.classList.add("todo-list-all");
+    addTodoForm.classList.remove("add-todo-form-done");
+    addTodoForm.classList.add("add-todo-form");
   }
 
   state.todos.filter(filterFunction).forEach((todo) => {

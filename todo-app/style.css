@@ -91,28 +91,16 @@
   box-shadow: 10px 10px #f5c400;
 }
 
-/* .todo-list-area:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-} */
-
 .show-todos {
   display: flex;
   justify-content: space-around;
   color: currentColor;
-  /* border: 2px solid white;
-  background-color: #f5c400;
-  box-shadow: 10px 10px #f5c400; */
 }
 
 .radio-btn {
   width: 4rem;
   height: 4rem;
   border-top: 2px solid white;
-  /* border-right: 2px solid white;
-  border-left: 2px solid white; */
-  /* border-radius: 50%; */
 }
 
 .all {
@@ -133,6 +121,10 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.add-todo-form-done {
+  display: none;
 }
 
 .each-todo {
@@ -209,11 +201,3 @@ input[type="checkbox"]:checked::before {
   box-shadow: 10px 10px #f5c400;
   color: currentColor;
 }
-
-/* color palette */
-/* CSS HEX */
---selective-yellow: #fbaf00ff;
---gold: #ffd639ff;
---salmon-pink: #ffa3afff;
---honolulu-blue: #007cbeff;
---pigment-green: #00af54ff;
